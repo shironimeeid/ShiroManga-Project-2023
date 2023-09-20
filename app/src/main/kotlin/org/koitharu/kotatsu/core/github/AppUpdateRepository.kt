@@ -37,7 +37,7 @@ class AppUpdateRepository @Inject constructor(
 	suspend fun getAvailableVersions(): List<AppVersion> {
 		val request = Request.Builder()
 			.get()
-			.url("https://api.github.com/repos/KotatsuApp/Kotatsu/releases?page=1&per_page=10")
+			.url("https://github.com/shironimeeid/ShiroManga-Project-2023/releases?page=1&per_page=10")
 		val jsonArray = okHttp.newCall(request.build()).await().parseJsonArray()
 		return jsonArray.mapJSONNotNull { json ->
 			val asset = json.optJSONArray("assets")?.find { jo ->

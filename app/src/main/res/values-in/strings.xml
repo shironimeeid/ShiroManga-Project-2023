@@ -217,8 +217,8 @@
     <string name="rotate_screen">Putar layar</string>
     <string name="feed_will_update_soon">Pembaruan aliran akan dimulai</string>
     <string name="enter_password">Masukkan kata sandi</string>
-    <string name="protect_application_summary">Tanya kata sandi ketika memulai Kotatsu</string>
-    <string name="about">Tentang</string>
+    <string name="protect_application_summary">Tanya kata sandi ketika memulai shiro-manga</string>
+    <string name="about">Tentang ShiroManga</string>
     <string name="check_for_updates">Periksa pembaruan</string>
     <string name="passwords_mismatch">Kata sandi tidak sama</string>
     <string name="app_version">Versi %s</string>

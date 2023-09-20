@@ -8,7 +8,7 @@
 		<Preference
 			android:key="app_version"
 			android:persistent="false"
-			android:summary="@string/check_for_updates" />
+			android:summary="@string/" />
 
 		<SwitchPreferenceCompat
 			android:defaultValue="false"

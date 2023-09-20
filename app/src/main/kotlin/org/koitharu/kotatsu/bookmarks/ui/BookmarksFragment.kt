@@ -14,6 +14,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.ImageLoader
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.koitharu.kotatsu.R
 import org.koitharu.kotatsu.bookmarks.domain.Bookmark
@@ -24,7 +25,8 @@ import org.koitharu.kotatsu.core.ui.BaseFragment
 import org.koitharu.kotatsu.core.ui.list.ListSelectionController
 import org.koitharu.kotatsu.core.ui.list.OnListItemClickListener
 import org.koitharu.kotatsu.core.ui.list.fastscroll.FastScroller
-import org.koitharu.kotatsu.core.ui.util.ReversibleActionObserver
+import org.koitharu.kotatsu.core.ui.util.ReversibleAction
+import org.koitharu.kotatsu.core.ui.util.reverseAsync
 import org.koitharu.kotatsu.core.util.ext.observe
 import org.koitharu.kotatsu.core.util.ext.observeEvent
 import org.koitharu.kotatsu.databinding.FragmentListSimpleBinding
@@ -36,6 +38,7 @@ import org.koitharu.kotatsu.list.ui.adapter.ListStateHolderListener
 import org.koitharu.kotatsu.list.ui.adapter.TypedListSpacingDecoration
 import org.koitharu.kotatsu.list.ui.model.ListHeader
 import org.koitharu.kotatsu.main.ui.owners.AppBarOwner
+import org.koitharu.kotatsu.main.ui.owners.SnackbarOwner
 import org.koitharu.kotatsu.parsers.model.Manga
 import org.koitharu.kotatsu.reader.ui.ReaderActivity
 import javax.inject.Inject
@@ -58,17 +61,11 @@ class BookmarksFragment :
 	private var bookmarksAdapter: BookmarksAdapter? = null
 	private var selectionController: ListSelectionController? = null
 
-	override fun onCreateViewBinding(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-	): FragmentListSimpleBinding {
+	override fun onCreateViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentListSimpleBinding {
 		return FragmentListSimpleBinding.inflate(inflater, container, false)
 	}
 
-	override fun onViewBindingCreated(
-		binding: FragmentListSimpleBinding,
-		savedInstanceState: Bundle?,
-	) {
+	override fun onViewBindingCreated(binding: FragmentListSimpleBinding, savedInstanceState: Bundle?) {
 		super.onViewBindingCreated(binding, savedInstanceState)
 		selectionController = ListSelectionController(
 			activity = requireActivity(),
@@ -98,11 +95,8 @@ class BookmarksFragment :
 		viewModel.content.observe(viewLifecycleOwner) {
 			bookmarksAdapter?.setItems(it, spanSizeLookup)
 		}
-		viewModel.onError.observeEvent(
-			viewLifecycleOwner,
-			SnackbarErrorObserver(binding.recyclerView, this)
-		)
-		viewModel.onActionDone.observeEvent(viewLifecycleOwner, ReversibleActionObserver(binding.recyclerView))
+		viewModel.onError.observeEvent(viewLifecycleOwner, SnackbarErrorObserver(binding.recyclerView, this))
+		viewModel.onActionDone.observeEvent(viewLifecycleOwner, ::onActionDone)
 	}
 
 	override fun onDestroyView() {
@@ -145,20 +139,12 @@ class BookmarksFragment :
 		requireViewBinding().recyclerView.invalidateItemDecorations()
 	}
 
-	override fun onCreateActionMode(
-		controller: ListSelectionController,
-		mode: ActionMode,
-		menu: Menu,
-	): Boolean {
+	override fun onCreateActionMode(controller: ListSelectionController, mode: ActionMode, menu: Menu): Boolean {
 		mode.menuInflater.inflate(R.menu.mode_bookmarks, menu)
 		return true
 	}
 
-	override fun onActionItemClicked(
-		controller: ListSelectionController,
-		mode: ActionMode,
-		item: MenuItem,
-	): Boolean {
+	override fun onActionItemClicked(controller: ListSelectionController, mode: ActionMode, item: MenuItem): Boolean {
 		return when (item.itemId) {
 			R.id.action_remove -> {
 				val ids = selectionController?.snapshot() ?: return false
@@ -181,6 +167,16 @@ class BookmarksFragment :
 		}
 	}
 
+	private fun onActionDone(action: ReversibleAction) {
+		val handle = action.handle
+		val length = if (handle == null) Snackbar.LENGTH_SHORT else Snackbar.LENGTH_LONG
+		val snackbar = Snackbar.make((activity as SnackbarOwner).snackbarHost, action.stringResId, length)
+		if (handle != null) {
+			snackbar.setAction(R.string.undo) { handle.reverseAsync() }
+		}
+		snackbar.show()
+	}
+
 	private inner class SpanSizeLookup : GridLayoutManager.SpanSizeLookup(), Runnable {
 
 		init {
@@ -189,8 +185,7 @@ class BookmarksFragment :
 		}
 
 		override fun getSpanSize(position: Int): Int {
-			val total = (viewBinding?.recyclerView?.layoutManager as? GridLayoutManager)?.spanCount
-				?: return 1
+			val total = (viewBinding?.recyclerView?.layoutManager as? GridLayoutManager)?.spanCount ?: return 1
 			return when (bookmarksAdapter?.getItemViewType(position)) {
 				ListItemType.PAGE_THUMB.ordinal -> 1
 				else -> total
@@ -205,12 +200,6 @@ class BookmarksFragment :
 
 	companion object {
 
-		@Deprecated(
-			"", ReplaceWith(
-				"BookmarksFragment()",
-				"org.koitharu.kotatsu.bookmarks.ui.BookmarksFragment"
-			)
-		)
 		fun newInstance() = BookmarksFragment()
 	}
 }
