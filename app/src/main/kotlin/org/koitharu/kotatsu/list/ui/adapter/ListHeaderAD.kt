@@ -1,0 +1,31 @@
+package org.koitharu.kotatsu.list.ui.adapter
+
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
+import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import org.koitharu.kotatsu.databinding.ItemHeaderButtonBinding
+import org.koitharu.kotatsu.list.ui.model.ListHeader
+import org.koitharu.kotatsu.list.ui.model.ListModel
+
+fun listHeaderAD(
+	listener: ListHeaderClickListener?,
+) = adapterDelegateViewBinding<ListHeader, ListModel, ItemHeaderButtonBinding>(
+	{ inflater, parent -> ItemHeaderButtonBinding.inflate(inflater, parent, false) },
+) {
+	if (listener != null) {
+		binding.buttonMore.setOnClickListener {
+			listener.onListHeaderClick(item, it)
+		}
+	}
+
+	bind {
+		binding.textViewTitle.text = item.getText(context)
+		if (item.buttonTextRes == 0) {
+			binding.buttonMore.isInvisible = true
+			binding.buttonMore.text = null
+		} else {
+			binding.buttonMore.setText(item.buttonTextRes)
+			binding.buttonMore.isVisible = true
+		}
+	}
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/action_search"
+		android:icon="?actionModeWebSearchDrawable"
+		android:title="@string/search"
+		app:actionViewClass="androidx.appcompat.widget.SearchView"
+		app:showAsAction="ifRoom|collapseActionView" />
+
+	<item
+		android:id="@+id/action_random"
+		android:icon="@drawable/ic_dice"
+		android:title="@string/random"
+		app:showAsAction="ifRoom" />
+
+	<item
+		android:id="@+id/action_filter"
+		android:orderInCategory="30"
+		android:title="@string/filter"
+		app:showAsAction="never" />
+
+	<item
+		android:id="@+id/action_source_settings"
+		android:orderInCategory="50"
+		android:title="@string/settings"
+		app:showAsAction="never" />
+</menu>

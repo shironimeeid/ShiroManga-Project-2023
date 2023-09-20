@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<ListPreference
+		android:entries="@array/reader_modes"
+		android:key="reader_mode"
+		android:title="@string/default_mode"
+		app:useSimpleSummaryProvider="true" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="reader_mode_detect"
+		android:summary="@string/detect_reader_mode_summary"
+		android:title="@string/detect_reader_mode" />
+
+	<ListPreference
+		android:entries="@array/zoom_modes"
+		android:key="zoom_mode"
+		android:title="@string/scale_mode"
+		app:allowDividerAbove="true"
+		app:useSimpleSummaryProvider="true" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="webtoon_zoom"
+		android:summary="@string/webtoon_zoom_summary"
+		android:title="@string/webtoon_zoom" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:key="reader_zoom_buttons"
+		android:summary="@string/reader_zoom_buttons_summary"
+		android:title="@string/reader_zoom_buttons" />
+
+	<MultiSelectListPreference
+		android:defaultValue="@array/values_reader_switchers_default"
+		android:entries="@array/reader_switchers"
+		android:entryValues="@array/values_reader_switchers"
+		android:key="reader_switchers"
+		android:title="@string/switch_pages"
+		app:allowDividerAbove="true" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:key="reader_taps_ltr"
+		android:summary="@string/reader_control_ltr_summary"
+		android:title="@string/reader_control_ltr" />
+
+	<ListPreference
+		android:entries="@array/reader_animation"
+		android:key="reader_animation2"
+		android:title="@string/pages_animation"
+		app:useSimpleSummaryProvider="true" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="reader_bar"
+		android:summary="@string/reader_info_bar_summary"
+		android:title="@string/reader_info_bar"
+		app:allowDividerAbove="true" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="reader_slider"
+		android:title="@string/reader_slider" />
+
+	<ListPreference
+		android:entries="@array/reader_backgrounds"
+		android:key="reader_background"
+		android:title="@string/background"
+		app:useSimpleSummaryProvider="true" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:key="pages_numbers"
+		android:summary="@string/show_pages_numbers_summary"
+		android:title="@string/show_pages_numbers" />
+
+	<ListPreference
+		android:defaultValue="allow"
+		android:entries="@array/screenshots_policy"
+		android:entryValues="@array/values_screenshots_policy"
+		android:key="screenshots_policy"
+		android:title="@string/screenshots_policy"
+		app:allowDividerAbove="true"
+		app:useSimpleSummaryProvider="true" />
+
+	<ListPreference
+		android:defaultValue="2"
+		android:entries="@array/network_policy"
+		android:entryValues="@array/values_network_policy"
+		android:key="pages_preload"
+		android:title="@string/preload_pages"
+		app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="themes">
+		<item>@string/automatic</item>
+		<item>@string/light</item>
+		<item>@string/dark</item>
+	</string-array>
+	<string-array name="reader_switchers">
+		<item>@string/taps_on_edges</item>
+		<item>@string/volume_buttons</item>
+	</string-array>
+	<string-array name="zoom_modes">
+		<item>@string/zoom_mode_fit_center</item>
+		<item>@string/zoom_mode_fit_height</item>
+		<item>@string/zoom_mode_fit_width</item>
+		<item>@string/zoom_mode_keep_start</item>
+	</string-array>
+	<string-array name="track_sources">
+		<item>@string/favourites</item>
+		<item>@string/history</item>
+	</string-array>
+	<string-array name="list_modes">
+		<item>@string/list</item>
+		<item>@string/detailed_list</item>
+		<item>@string/grid</item>
+	</string-array>
+	<string-array name="screenshots_policy">
+		<item>@string/screenshots_allow</item>
+		<item>@string/screenshots_block_nsfw</item>
+		<item>@string/screenshots_block_all</item>
+	</string-array>
+	<string-array name="network_policy">
+		<item>@string/always</item>
+		<item>@string/only_using_wifi</item>
+		<item>@string/never</item>
+	</string-array>
+	<string-array name="doh_providers">
+		<item>@string/disabled</item>
+		<item>Google</item>
+		<item>CloudFlare</item>
+		<item>AdGuard</item>
+	</string-array>
+	<string-array name="reader_modes">
+		<item>@string/standard</item>
+		<item>@string/right_to_left</item>
+		<item>@string/webtoon</item>
+	</string-array>
+	<string-array name="scrobbling_statuses">
+		<item>@string/status_planned</item>
+		<item>@string/status_reading</item>
+		<item>@string/status_re_reading</item>
+		<item>@string/status_completed</item>
+		<item>@string/status_on_hold</item>
+		<item>@string/status_dropped</item>
+	</string-array>
+	<string-array name="proxy_types">
+		<item>@string/disabled</item>
+		<item>HTTP</item>
+		<item>SOCKS (v4/v5)</item>
+	</string-array>
+	<string-array name="reader_backgrounds">
+		<item>@string/system_default</item>
+		<item>@string/color_light</item>
+		<item>@string/color_dark</item>
+		<item>@string/color_white</item>
+		<item>@string/color_black</item>
+	</string-array>
+	<string-array name="reader_animation">
+		<item>@string/disabled</item>
+		<item>@string/system_default</item>
+		<item>@string/advanced</item>
+	</string-array>
+	<string-array name="first_nav_item">
+		<item>@string/history</item>
+		<item>@string/favourites</item>
+	</string-array>
+</resources>

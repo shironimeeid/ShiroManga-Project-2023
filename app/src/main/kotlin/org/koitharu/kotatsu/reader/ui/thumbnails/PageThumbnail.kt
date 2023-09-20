@@ -1,0 +1,19 @@
+package org.koitharu.kotatsu.reader.ui.thumbnails
+
+import org.koitharu.kotatsu.core.parser.MangaRepository
+import org.koitharu.kotatsu.list.ui.model.ListModel
+import org.koitharu.kotatsu.reader.ui.pager.ReaderPage
+
+data class PageThumbnail(
+	val isCurrent: Boolean,
+	val repository: MangaRepository,
+	val page: ReaderPage,
+) : ListModel {
+
+	val number
+		get() = page.index + 1
+
+	override fun areItemsTheSame(other: ListModel): Boolean {
+		return other is PageThumbnail && page == other.page
+	}
+}
